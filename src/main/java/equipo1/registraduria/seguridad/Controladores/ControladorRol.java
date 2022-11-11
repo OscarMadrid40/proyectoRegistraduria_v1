@@ -20,9 +20,8 @@ public class ControladorRol {
     }
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Rol create(@RequestBody Rol infoUsuario){
-        infoUsuario.set_contrasena(convertirSHA256(infoUsuario.get_contrasena()));
-        return this.miRepositorioRol.save(infoUsuario);
+    public Rol create(@RequestBody Rol infoRol){
+        return this.miRepositorioRol.save(infoRol);
     }
     @GetMapping("{id}")
     public Rol show(@PathVariable String id){
@@ -37,8 +36,8 @@ public class ControladorRol {
                 .findById(id)
                 .orElse(null);
         if (rolActual!=null){
-            rolActual.set_nombre(infoRol.get_nombre());
-            rolActual.set_descripcion(infoRol.get_descripcion());
+            rolActual.setNombre(infoRol.getNombre());
+            rolActual.setDescripcion(infoRol.getDescripcion());
             return this.miRepositorioRol.save(rolActual);
         }else{
             return null;
